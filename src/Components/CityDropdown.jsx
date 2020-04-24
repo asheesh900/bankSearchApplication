@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {getBankDetails} from '../Redux/Action'
+import {getBankDetails, createPages} from '../Redux/Action'
 
 class CityDropdown extends Component {
     constructor(props) {
@@ -11,9 +11,10 @@ class CityDropdown extends Component {
         }
     }
 
-    handleChange = (e) => {
+    handleChange = async(e) => {
         let cityName = e.target.value
-        this.props.getBankDetails(cityName)
+        await this.props.getBankDetails(cityName)
+        this.props.createPages()
     }
     
     render() {
@@ -33,12 +34,15 @@ class CityDropdown extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    
+    isData: state.isData
 })
 
 const mapDispatchToProps = (dispatch) =>  ({
-    getBankDetails: (cityName) => dispatch(getBankDetails(cityName))
+    getBankDetails: (cityName) => dispatch(getBankDetails(cityName)),
+    createPages: () => dispatch(createPages())
 })
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(CityDropdown)
 
