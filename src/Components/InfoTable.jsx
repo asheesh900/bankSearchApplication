@@ -6,12 +6,31 @@ class InfoTable extends Component {
         super(props)
     
         this.state = {
-             
+
         }
     }
+
+    markItem = (e) => {
+        let markedItem = e.target.value
+
+        // console.log(markedItem)
+        let fav = localStorage.getItem("favBank")
+        var item = JSON.parse(markedItem)
+        if(fav) {
+            fav = JSON.parse(fav)
+            if(fav.indexOf(item) === -1) {
+                fav.push(item)
+                localStorage.setItem("favBank", JSON.stringify(fav))
+            }
+        } else {
+            localStorage.setItem("favBank", JSON.stringify([item]))
+        }
+
+    }
+
     
     render() {
-        const {temp, banks, ifData, perPage, pageDuplicate} = this.props
+        const {temp, ifData, perPage, pageDuplicate} = this.props
         let count = 1
         return (
             ifData ?
@@ -43,7 +62,7 @@ class InfoTable extends Component {
                                         <td>{ele.district} </td>
                                         <td>{ele.state} </td>
                                         <td>{ele.address} </td>
-                                        <td><button>Mark Favourite</button> </td>
+                                        <td><button value = {JSON.stringify(ele)} onClick = {(e) => this.markItem(e)}>Mark Favourite</button> </td>
                                     </tr>
                                 )
                             })
