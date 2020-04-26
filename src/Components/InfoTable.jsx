@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 class InfoTable extends Component {
     constructor(props) {
@@ -11,30 +13,58 @@ class InfoTable extends Component {
     }
 
     markItem = (e) => {
+        // console.log(e.target.value)
         let markedItem = e.target.value
-
-        // console.log(markedItem)
-        let fav = localStorage.getItem("favBank")
         var item = JSON.parse(markedItem)
+
+        let fav = localStorage.getItem("favBank")
         if(fav) {
             fav = JSON.parse(fav)
-            if(fav.indexOf(item) === -1) {
+            console.log(fav)
+            for(var i=0; i<fav.length; i++) {
+
+                if(fav[i]["ifsc"] === item["ifsc"]) {
+                    alert("Already favourite")
+                    break;
+                }
+            }
+            if(i === fav.length) {
                 fav.push(item)
                 localStorage.setItem("favBank", JSON.stringify(fav))
+                alert("marked favourite")
+
             }
+
         } else {
-            localStorage.setItem("favBank", JSON.stringify([item]))
+            let fav = []
+            fav.push(item)
+            localStorage.setItem("favBank", JSON.stringify(fav))
+            alert("marked favourite")
         }
+
+        this.props.getFavourite()
 
     }
 
     
     render() {
-        const {temp, ifData, perPage, pageDuplicate} = this.props
+        const {temp, isData, isLoading, perPage, pageDuplicate} = this.props
         let count = 1
         return (
-            ifData ?
+            isLoading ?
+            ( 
+                <Loader
+                    className = "text-center"
+                    type="Puff"
+                    color="#00BFFF"
+                    height={100}
+                    width={100}
+            
+                />
+            ):
             (
+            <>
+                <h1>All Banks</h1>
                 <table className="table table-striped table-dark table-responsive">
                     <thead>
                         <tr>
@@ -63,6 +93,9 @@ class InfoTable extends Component {
                                         <td>{ele.state} </td>
                                         <td>{ele.address} </td>
                                         <td><button value = {JSON.stringify(ele)} onClick = {(e) => this.markItem(e)}>Mark Favourite</button> </td>
+                                        {/* stringifying above object to get the we can 
+                                            get the value using e.target.value and parsing it.
+                                             Just check what happens without it. */}
                                     </tr>
                                 )
                             })
@@ -71,13 +104,9 @@ class InfoTable extends Component {
 
                     </tbody>
                 </table>
-                
-            ):
-            (
-                <div>
-                    <h1>Data is loading...</h1>
-                </div>
+            </>  
             )
+            
             
         )
     }
@@ -86,7 +115,8 @@ class InfoTable extends Component {
 const mapStateToProps = (state) => ({
     temp: state.temp,
     banks: state.banks,
-    ifData: state.ifData,
+    isLoading: state.isLoading,
+    isData: state.isData,
     perPage: state.perPage,
     pageDuplicate: state.page,
 })

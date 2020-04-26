@@ -13,7 +13,7 @@ class Pagination extends Component {
     
     render() {
         const {page, perPage, totalPages} = this.props
-        console.log(page, perPage, totalPages)
+        // console.log(page, perPage, totalPages)
 
         let pageList = []
         for(let i=page-1; i>=0 && i<=page+3 && i<=Math.ceil(totalPages); i++) {

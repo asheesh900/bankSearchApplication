@@ -5,7 +5,7 @@ export default class FavouriteBanks extends Component {
         super(props)
     
         this.state = {
-             favBank: []
+            
         }
     }
 
@@ -14,7 +14,7 @@ export default class FavouriteBanks extends Component {
         const {favBank} = this.props
         return (
             <div>
-                <table class="table table-dark">
+                <table className="table table-dark">
                     <thead>
                         <tr>
                         <th scope="col">Bank Name</th>
@@ -24,9 +24,9 @@ export default class FavouriteBanks extends Component {
                     </thead>
                     <tbody>
                         {
-                           favBank && favBank.map(ele => {
+                           favBank && favBank.map((ele, i) => {
                                 return (
-                                    <tr>
+                                    <tr key = {i}>
                                         <td>{ele.bank_name} </td>
                                         <td>{ele.branch} </td>
                                         <td>{ele.ifsc} </td>

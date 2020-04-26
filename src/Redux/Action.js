@@ -36,7 +36,7 @@ export const bankDeatailsFailure = error => {
 export const getBankDetails = (cityName) => {
     let url = `https://vast-shore-74260.herokuapp.com/banks?city=${cityName}`
     return dispatch => {
-        dispatch(bankDetailsRequest)
+        dispatch(bankDetailsRequest())
         return axios
             .get(url)
             .then(res => {

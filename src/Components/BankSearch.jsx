@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import CityDropdown from './CityDropdown'
-import SearchBar from './SearchBar'
 import InfoTable from './InfoTable'
 import Pagination from './Pagination'
 import FavouriteBanks from './FavouriteBanks'
+import { connect } from 'react-redux'
 // import '../App.css'
 
 
-export default class BankSearch extends Component {
+class BankSearch extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
-             favBank: []
+             favBank: [],
         }
     }
 
@@ -23,6 +23,7 @@ export default class BankSearch extends Component {
                 favBank: [...fav]
            })
         }
+        
     }
 
     getFavourite = () => {
@@ -35,20 +36,22 @@ export default class BankSearch extends Component {
     }
     
     render() {
+        let {isRequest} = this.props
+        console.log(isRequest)
         return (
             <div className = "container-fluid ">
                 <div className="container-fluid">
                     <h1 className = "text-center">Bank Search Application</h1>
                     <CityDropdown />
-                    <SearchBar />
                     <div className="row">
                         <div className = "displayTable col-9">
-                            <h1>All Banks</h1>
-                            <InfoTable />
+                            {
+                                isRequest ? (<InfoTable getFavourite = {this.getFavourite} />) : (<h1>Welcome to the bank database.</h1>)
+                            }
+                            
                         </div>
                         <div className = "displayTable col-3">
                             <h1>Favourite Banks</h1>
-                            <button onClick = {this.getFavourite} type="button" className="btn btn-primary btn-lg btn-block m-2">Show favourite banks</button>
                             <FavouriteBanks favBank = {this.state.favBank} />  
                         </div>
                     </div>
@@ -60,3 +63,14 @@ export default class BankSearch extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    isRequest: state.isRequest,
+})
+
+const mapDispatchToProps = (dispatch) =>  ({
+    
+})
+
+export default connect (mapStateToProps, null) (BankSearch)
+

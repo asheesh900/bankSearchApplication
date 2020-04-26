@@ -10,6 +10,7 @@ import {
 const initialState = {
     banks: [],
     temp: [],
+    isRequest: false,
     isData: false,
     isLoading: false,
     error: "",
@@ -24,13 +25,15 @@ const reducer = (state = initialState, action) => {
         case FETCH_BANKDETAILS_REQUEST:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                isRequest: true
             }
 
         case FETCH_BANKDETAILS_SUCCESS:
             return {
                 ...state,
-                ifData: true,
+                isData: true,
+                isLoading: false,
                 banks: action.data,
                 temp: action.data,
             }
@@ -50,7 +53,7 @@ const reducer = (state = initialState, action) => {
                     return ele
                 }
             })
-            console.log(query, arr, )
+            // console.log(query, arr, )
 
             return {
                 ...state,
