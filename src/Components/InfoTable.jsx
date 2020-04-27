@@ -48,7 +48,7 @@ class InfoTable extends Component {
 
     
     render() {
-        const {temp, isData, isLoading, perPage, pageDuplicate} = this.props
+        const {temp, isLoading, perPage, pageDuplicate} = this.props
         let count = 1
         return (
             isLoading ?
@@ -121,8 +121,5 @@ const mapStateToProps = (state) => ({
     pageDuplicate: state.page,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    
-})
 
-export default connect (mapStateToProps, mapDispatchToProps) (InfoTable)
+export default connect (mapStateToProps, null) (InfoTable)

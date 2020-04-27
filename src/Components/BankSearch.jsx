@@ -4,7 +4,6 @@ import InfoTable from './InfoTable'
 import Pagination from './Pagination'
 import FavouriteBanks from './FavouriteBanks'
 import { connect } from 'react-redux'
-// import '../App.css'
 
 
 class BankSearch extends Component {
@@ -68,9 +67,6 @@ const mapStateToProps = (state) => ({
     isRequest: state.isRequest,
 })
 
-const mapDispatchToProps = (dispatch) =>  ({
-    
-})
 
 export default connect (mapStateToProps, null) (BankSearch)
 

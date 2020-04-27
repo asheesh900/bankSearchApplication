@@ -5,10 +5,9 @@ import {getBankDetails, filterInfo, createPages} from '../Redux/Action'
 class CityDropdown extends Component {
     constructor(props) {
         super(props)
-    
-        this.state = {
-            searchString: ""
-        }
+
+        this.searchString = React.createRef()
+        
     }
 
     handleChange = async(e) => {
@@ -18,20 +17,24 @@ class CityDropdown extends Component {
         this.props.createPages()
     }
 
-    searchInfo = async(e) => {
-        // await this.setState({
-        //     searchString: e.target.value
-        // })
-        await this.props.filterInfo(e.target.value)
+    searchInfo = async() => {
+        console.log(this.searchString.current.value)
+        let searchKey = this.searchString.current.value
+        await this.props.filterInfo(searchKey)
         this.props.createPages()
         
     }
 
     resetSearch = () => {
-        this.refs.searchBox.value = ""
-        // this.setState({
-        //     searchString: ""
-        // })
+        this.searchString.current.value = ""
+    }
+
+    debounce = (fn, delay) => {
+      let timerId
+      return function() {
+        clearTimeout(timerId)
+        timerId = setTimeout(() => fn(), delay)
+      }
     }
     
     render() {
@@ -56,14 +59,12 @@ class CityDropdown extends Component {
                 Search any bank information
               </label>
               <input
-                onKeyUp={this.searchInfo}
+                onChange={this.debounce(this.searchInfo, 400)}
                 type="text"
                 className="form-control"
                 id="formGroupExampleInput"
                 placeholder="e.g. Bank Name"
-                name="search"
-                ref="searchBox"
-                // value = {this.state.searchString}
+                ref = {this.searchString}
               />
             </div>
           </>
@@ -71,9 +72,6 @@ class CityDropdown extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    isData: state.isData
-})
 
 const mapDispatchToProps = (dispatch) =>  ({
     getBankDetails: (cityName) => dispatch(getBankDetails(cityName)),
@@ -83,5 +81,5 @@ const mapDispatchToProps = (dispatch) =>  ({
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CityDropdown)
+export default connect(null, mapDispatchToProps)(CityDropdown)
 

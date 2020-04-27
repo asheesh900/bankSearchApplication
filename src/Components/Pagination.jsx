@@ -12,7 +12,7 @@ class Pagination extends Component {
     }
     
     render() {
-        const {page, perPage, totalPages} = this.props
+        const {page, totalPages} = this.props
         // console.log(page, perPage, totalPages)
 
         let pageList = []

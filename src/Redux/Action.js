@@ -37,15 +37,25 @@ export const getBankDetails = (cityName) => {
     let url = `https://vast-shore-74260.herokuapp.com/banks?city=${cityName}`
     return dispatch => {
         dispatch(bankDetailsRequest())
-        return axios
+
+        let data = JSON.parse(localStorage.getItem(cityName))
+
+        if(!data) {
+            return axios
             .get(url)
             .then(res => {
-                // console.log(res.data)
+                // alert("making api call")
+                // console.log(res)
+                localStorage.setItem(cityName, JSON.stringify(res.data))
                 return dispatch(bankDetailsSuccess(res.data))
             })
             .catch(err => {
                 return dispatch(bankDeatailsFailure(err))
             })
+        } else {
+            // alert("fetching from localStorage")
+            dispatch(bankDetailsSuccess(data))
+        }
     }
 }
 
