@@ -14,7 +14,7 @@ export default class FavouriteBanks extends Component {
         const {favBank} = this.props
         return (
             <div>
-                <table className="table table-dark">
+                <table className="table table-dark table-responsive">
                     <thead>
                         <tr>
                         <th scope="col">Bank Name</th>

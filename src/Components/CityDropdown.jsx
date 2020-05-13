@@ -40,7 +40,7 @@ class CityDropdown extends Component {
     render() {
         return (
           <>
-            <div className="input-group m-3">
+            <div className="input-group mx-3 my-4">
               <select
                 onChange={this.handleChange}
                 className="custom-select"
@@ -54,7 +54,7 @@ class CityDropdown extends Component {
                 <option value="UTTAR PRADESH">Uttar Pradesh</option>
               </select>
             </div>
-            <div className="form-group-lg m-3">
+            <div className="form-group-lg m-3 h3">
               <label htmlFor="formGroupExampleInput">
                 Search any bank information
               </label>

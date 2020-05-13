@@ -40,17 +40,17 @@ class BankSearch extends Component {
         return (
             <div className = "container-fluid ">
                 <div className="container-fluid">
-                    <h1 className = "text-center">Bank Search Application</h1>
+                    <h1 className = "text-center py-4 display-4 font-weight-bold">Bank Search Application</h1>
                     <CityDropdown />
                     <div className="row">
-                        <div className = "displayTable col-9">
+                        <div className = "displayTable col-lg-9 col-md-12 col-sm-12">
                             {
-                                isRequest ? (<InfoTable getFavourite = {this.getFavourite} />) : (<h1>Welcome to the bank database.</h1>)
+                                isRequest ? (<InfoTable getFavourite = {this.getFavourite} />) : (<h1 className = "my-4 font-weight-bold">Welcome to the bank database.</h1>)
                             }
                             
                         </div>
-                        <div className = "displayTable col-3">
-                            <h1>Favourite Banks</h1>
+                        <div className = "displayTable col-lg-3 col-md-8 col-sm-12">
+                            <h1 className = "my-4 font-weight-bold">Favourite Banks</h1>
                             <FavouriteBanks favBank = {this.state.favBank} />  
                         </div>
                     </div>

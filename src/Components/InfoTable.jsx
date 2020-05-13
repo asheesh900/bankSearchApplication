@@ -64,7 +64,7 @@ class InfoTable extends Component {
             ):
             (
             <>
-                <h1>All Banks</h1>
+                <h1 className = "my-4 font-weight-bold">All Banks</h1>
                 <table className="table table-striped table-dark table-responsive">
                     <thead>
                         <tr>
